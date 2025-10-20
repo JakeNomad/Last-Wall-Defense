@@ -6,6 +6,7 @@ public class FollowPlayer : MonoBehaviour
     public GameObject player;
 
     [Header("Settings")]
+    [SerializeField] private float smoothSpeed = 0.1f;
     private float offsetX = -0.64f;
     private float offsetY = -1.12f;
     private float offsetZ = 6.01f;
@@ -19,7 +20,21 @@ public class FollowPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        SmoothFollow();
+    }
+    
+    private void SmoothFollow()
+    {
         Vector3 offset = new Vector3(offsetX, offsetY, offsetZ);
-        transform.position = player.transform.position - offset;
+        Vector3 desiredPosition = player.transform.position - offset;
+
+        // Vector3.Lerp fonk. için gerekli bileşenler (ilk pozisyon, sonraki pozisyonu, geçiş hızı)
+        Vector3 smoothedPosition = Vector3.Lerp(
+            transform.position,
+            desiredPosition,
+            smoothSpeed
+        );
+
+        transform.position = smoothedPosition;
     }
 }
