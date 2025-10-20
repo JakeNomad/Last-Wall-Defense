@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 1654849467}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -561,7 +561,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782702501286144095}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  jumpAmount: 8
 --- !u!1001 &9130902273912545910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -603,6 +604,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 547425235347690211, guid: 4ced0f4ff59d06e4eaf84cde14771b52, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 547425235347690211, guid: 4ced0f4ff59d06e4eaf84cde14771b52, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2328418123342211868, guid: 4ced0f4ff59d06e4eaf84cde14771b52, type: 3}
@@ -643,6 +648,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2328418123342211868, guid: 4ced0f4ff59d06e4eaf84cde14771b52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550021933982604757, guid: 4ced0f4ff59d06e4eaf84cde14771b52, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -9,15 +9,24 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 2f;
-    private float horizontalInput;
+    [SerializeField] private float jumpAmount = 5f;
 
+    [Header("Control")]
+    private float horizontalInput;
     private const float RightRotationY = 90f;
-    //private const float LeftRotationY = -90f;
+    private bool isOnGround;
+   
 
 
     void Start()
     {
+        isOnGround = true;
         playerRb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        Jump();
     }
 
     void FixedUpdate()
@@ -36,9 +45,26 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.linearVelocity = new Vector3(movement.x, playerRb.linearVelocity.y, playerRb.linearVelocity.z);
 
+            // Hareket olduğunda
             if (horizontalInput != 0)
                 FlipCharacter(horizontalInput);
         }
+    }
+
+    private void Jump()
+    {
+        // Space bastığın zaman
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            isOnGround = false;
+            playerRb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+        }
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+            isOnGround = true;
     }
     
     // Karakterin x ekseninde modelinin dönmesini sağlayan, inputu kontrol eden fonksiyon
