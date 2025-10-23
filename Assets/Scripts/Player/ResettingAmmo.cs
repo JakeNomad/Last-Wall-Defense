@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class ResettingAmmo : MonoBehaviour
 {
-    private Interactables interactables;
+    private AmmoBox interactables;
 
     void Start()
     {
-        interactables = GameObject.Find("Ammo Box").gameObject.GetComponent<Interactables>();
+        interactables = GameObject.Find("Ammo Box").gameObject.GetComponent<AmmoBox>();
     }
 
     private void OnTriggerEnter(Collider collider)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Interactables : MonoBehaviour
+public class AmmoBox : MonoBehaviour
 {
     [Header("Control")]
     protected bool isInCollision = false;
