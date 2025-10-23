@@ -24,12 +24,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
     }
-
-    void Update()
-    {
-        
-    }
-
+    
     void FixedUpdate()
     {
         Move();
@@ -64,7 +59,7 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-         RotateCharacter(targetVelocity);      
+        RotateCharacter(targetVelocity);      
     }
     
     private void RotateCharacter(Vector3 movementDirection)
