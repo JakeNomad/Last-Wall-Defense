@@ -9,24 +9,20 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float jumpAmount = 5f;
+    [SerializeField] private float rotationSpeed = 600f;
 
     [Header("Control")]
+    private float verticalInput;
     private float horizontalInput;
-    private const float RightRotationY = 90f;
-    private bool isOnGround;
-   
-
 
     void Start()
     {
-        isOnGround = true;
         playerRb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        Jump();
+        
     }
 
     void FixedUpdate()
@@ -37,53 +33,43 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
 
-        //x ekseni hareketi
-        Vector3 movement = new Vector3(horizontalInput, 0f, 0f) * moveSpeed;
+        // Daha okunabilir hale getirilebilir
+        Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
 
         if (playerRb != null)
         {
-            playerRb.linearVelocity = new Vector3(movement.x, playerRb.linearVelocity.y, playerRb.linearVelocity.z);
-
-            // Hareket olduğunda
-            if (horizontalInput != 0)
-                FlipCharacter(horizontalInput);
+            playerRb.linearVelocity = new Vector3(
+                targetVelocity.x,
+                playerRb.linearVelocity.y,
+                targetVelocity.z
+            );
         }
-    }
 
-    private void Jump()
-    {
-        // Space bastığın zaman
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
-            isOnGround = false;
-            playerRb.AddForce(Vector3.up * jumpAmount, ForceMode.Impulse);
+            RotateCharacter(targetVelocity);
         }
     }
     
-    private void OnTriggerEnter(Collider other)
+    private void RotateCharacter(Vector3 movementDirection)
     {
-        if (other.CompareTag("Ground"))
-            isOnGround = true;
-    }
-    
-    // Karakterin x ekseninde modelinin dönmesini sağlayan, inputu kontrol eden fonksiyon
-    private void FlipCharacter(float direction)
-    {
-        Quaternion targetRotation = transform.rotation;
+        // Dont move in y direction
+        movementDirection.y = 0;
 
-        if (direction < 0)
+        // If there is a velocity direction
+        if(movementDirection.sqrMagnitude > 0.01f)
         {
-            // Sola dönecek rotasyon, -90 derece için Euler methodu.
-            targetRotation = Quaternion.Euler(0, -RightRotationY, 0);
-        }
-        else if (direction > 0)
-        {
-            // Sağa dönecek rotasyon, 90 derece için Euler methodu.
-            targetRotation = Quaternion.Euler(0, RightRotationY, 0);
-        }
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
 
-        transform.rotation = targetRotation;
+            // Soft translate through current transform and target transform
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
     }
 }
 
