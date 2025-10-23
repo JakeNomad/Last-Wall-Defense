@@ -7,15 +7,15 @@ public class FollowPlayer : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float smoothSpeed = 0.1f;
-    private float offsetX = -0.64f;
-    private float offsetY = -1.12f;
-    private float offsetZ = 6.01f;
+    private float offsetX = 0.14f;
+    private float offsetY = 5.48f;
+    private float offsetZ = -0.04f;
     
     void Start()
     {
-        // Vector3 playerToCamera = (player.transform.position - transform.position);
-        // Debug.Log(playerToCamera);
-        // -0.64, -1.12 , 6.01
+        Vector3 playerToCamera = (player.transform.position - transform.position);
+        Debug.Log(playerToCamera);
+        // -0.14, -5.48, 0.04
     }
 
     void FixedUpdate()
