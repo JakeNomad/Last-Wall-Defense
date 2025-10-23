@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
     private Rigidbody playerRb;
+    private Animator playerAnim;
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 2f;
@@ -15,9 +16,13 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private float horizontalInput;
 
+    [Header("Animation")]
+    private readonly int isRunningHash = Animator.StringToHash("IsRunning");
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
     }
 
     void Update()
@@ -35,6 +40,18 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
+        bool isMoving = (horizontalInput != 0 || verticalInput != 0);
+
+        // Assing the animation parameter
+        playerAnim.SetBool(isRunningHash, isMoving);
+
+        // If there is a not movement. Do not continue to rigidbody physics.
+        if (!isMoving)
+        {
+            playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, 0);
+            return;
+        }
+
         // Daha okunabilir hale getirilebilir
         Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
 
@@ -47,10 +64,7 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        if (horizontalInput != 0 || verticalInput != 0)
-        {
-            RotateCharacter(targetVelocity);
-        }
+         RotateCharacter(targetVelocity);      
     }
     
     private void RotateCharacter(Vector3 movementDirection)
