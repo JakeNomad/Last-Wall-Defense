@@ -975,6 +975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 330585545}
   turretCam: {fileID: 1669409284}
+  rotationSpeed: 1
 --- !u!1 &1124197996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,7 +1848,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1669409281}
   - component: {fileID: 1669409284}
-  - component: {fileID: 1669409283}
   - component: {fileID: 1669409282}
   m_Layer: 0
   m_Name: Turret Cam
@@ -1864,13 +1864,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669409280}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07420881, y: 0.703202, z: -0.074208826, w: 0.70320207}
-  m_LocalPosition: {x: 0.054, y: 0.424, z: 0.30900025}
+  m_LocalRotation: {x: 0.009860385, y: 0.70703804, z: -0.009860385, w: 0.70703804}
+  m_LocalPosition: {x: 0.05400132, y: 0.4240008, z: 0.30900025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2010740336}
-  m_LocalEulerAnglesHint: {x: 12.048, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.598, y: 90, z: 0}
 --- !u!114 &1669409282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1915,14 +1915,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1669409283
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669409280}
-  m_Enabled: 1
 --- !u!20 &1669409284
 Camera:
   m_ObjectHideFlags: 0

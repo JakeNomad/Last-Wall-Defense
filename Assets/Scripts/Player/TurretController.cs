@@ -9,7 +9,6 @@ public class TurretController : MonoBehaviour
     {
         if(collider.CompareTag("Turret"))
         {
-            Debug.Log("Entered on the Turret");
             isOnTurrent = true;
         }
     }
@@ -18,7 +17,6 @@ public class TurretController : MonoBehaviour
     {
         if(collider.CompareTag("Turret"))
         {
-            Debug.Log("Exited on the Turret");
             isOnTurrent = false;
         }
     }
