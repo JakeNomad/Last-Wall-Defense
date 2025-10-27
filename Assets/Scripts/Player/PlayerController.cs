@@ -5,6 +5,7 @@ using UnityEngine.SocialPlatforms;
 public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
+    private TurretController turretController;
     private Rigidbody playerRb;
     private Animator playerAnim;
 
@@ -21,45 +22,57 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        turretController = GetComponent<TurretController>();
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
     }
     
-    void FixedUpdate()
-    {
-        Move();
-    }
-
-    private void Move()
+    void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
         bool isMoving = (horizontalInput != 0 || verticalInput != 0);
+    
+        // For stoping animation while using turret
+        bool shouldBeRunning = isMoving && !turretController.IsOnTurrent();
+        playerAnim.SetBool(isRunningHash, shouldBeRunning);
+    }
 
-        // Assing the animation parameter
-        playerAnim.SetBool(isRunningHash, isMoving);
-
-        // If there is a not movement. Do not continue to rigidbody physics.
-        if (!isMoving)
+    void FixedUpdate()
+    {
+        if (!turretController.IsOnTurrent())
+        {
+            Move();    
+        }
+        else
         {
             playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, 0);
-            return;
         }
+    }
 
-        // Daha okunabilir hale getirilebilir
-        Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
+private void Move()
+{
+    bool isMoving = (horizontalInput != 0 || verticalInput != 0);
 
-        if (playerRb != null)
-        {
-            playerRb.linearVelocity = new Vector3(
-                targetVelocity.x,
-                playerRb.linearVelocity.y,
-                targetVelocity.z
-            );
-        }
+    if (!isMoving)
+    {
+        playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, 0);
+        return;
+    }
 
-        RotateCharacter(targetVelocity);      
+    Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
+
+    if (playerRb != null)
+    {
+        playerRb.linearVelocity = new Vector3(
+            targetVelocity.x,
+            playerRb.linearVelocity.y,
+            targetVelocity.z
+        );
+    }
+
+    RotateCharacter(targetVelocity); 
     }
     
     private void RotateCharacter(Vector3 movementDirection)
