@@ -5,26 +5,35 @@ public class CameraSwitcher : MonoBehaviour
     [Header("Elements")]
     public Camera mainCam;
     public Camera turretCam;
-    private TurretController turretController;
 
+    public Transform turretPivot;
+
+
+    private TurretController turretController;
     private float horizontalInput;
     private float verticalInput;
 
-    private float rotationY;
-    private float rotationX;
-
     [Header("Settings")]
-    [SerializeField] private float rotationSpeed = 1f;
+    [SerializeField] private float lookSensitivity = 5f;
+    [SerializeField] private float verticalRotationLimit = 80f;
+
+    [SerializeField] private float minHorizontalLimit = -90f; 
+    [SerializeField] private float maxHorizontalLimit = 90f;
+
+    private float rotationX = 0f;
+    private float rotationY = 0f;
 
     void Start()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        Cursor.lockState = CursorLockMode.Locked;
 
         turretController = GameObject.Find("Player").gameObject.GetComponent<TurretController>();
         
         mainCam.enabled = true;
         turretCam.enabled = false;
+
+        rotationY = turretPivot.localEulerAngles.y;
+        rotationX = turretPivot.localEulerAngles.z;
     }
 
     void Update()
@@ -37,13 +46,24 @@ public class CameraSwitcher : MonoBehaviour
 
     private void HandleTurretCameraRotation()
     {
+        float mouseX = Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
 
-        rotationY += horizontalInput * rotationSpeed * Time.deltaTime;
-        rotationX -= verticalInput * rotationSpeed * Time.deltaTime;
+        // === For Y===
+        rotationY += mouseX;
+        rotationY = Mathf.Clamp(rotationY, minHorizontalLimit, maxHorizontalLimit);
 
-        rotationX = Mathf.Clamp(rotationX, -80f, 80f);
+        // === For X ===
+        rotationX += mouseY;
 
-        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        // Limiting the angle
+        rotationX = Mathf.Clamp(rotationX, -verticalRotationLimit, verticalRotationLimit);
+        
+        turretPivot.localRotation = Quaternion.Euler(
+            0f,         
+            rotationY, 
+            rotationX    
+        );
     }
 
     private bool ActivateTurretCam()

@@ -560,7 +560,8 @@ Transform:
   m_LocalPosition: {x: 0.11784363, y: 0.30871153, z: 0.3204713}
   m_LocalScale: {x: 0.4781525, y: -0.036179412, z: 0.08914974}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1669409281}
   m_Father: {fileID: 2010740336}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &448563319
@@ -975,7 +976,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 330585545}
   turretCam: {fileID: 1669409284}
-  rotationSpeed: 1
+  turretPivot: {fileID: 448563318}
+  lookSensitivity: 150
+  verticalRotationLimit: 80
+  minHorizontalLimit: -90
+  maxHorizontalLimit: 90
 --- !u!1 &1124197996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,12 +1869,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669409280}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.009860385, y: 0.70703804, z: -0.009860385, w: 0.70703804}
-  m_LocalPosition: {x: 0.05400132, y: 0.4240008, z: 0.30900025}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.009860385, y: 0.70703804, z: 0.009860385, w: 0.70703804}
+  m_LocalPosition: {x: -0.13351873, y: -3.1865988, z: -0.12867151}
+  m_LocalScale: {x: 11.217081, y: -27.379915, z: 2.0928874}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2010740336}
+  m_Father: {fileID: 448563318}
   m_LocalEulerAnglesHint: {x: 1.598, y: 90, z: 0}
 --- !u!114 &1669409282
 MonoBehaviour:
@@ -2340,7 +2345,6 @@ Transform:
   m_Children:
   - {fileID: 448563318}
   - {fileID: 1124197997}
-  - {fileID: 1669409281}
   m_Father: {fileID: 1518652610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2010740337
