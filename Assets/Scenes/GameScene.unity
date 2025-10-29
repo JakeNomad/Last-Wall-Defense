@@ -976,11 +976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 330585545}
   turretCam: {fileID: 1669409284}
-  turretPivot: {fileID: 448563318}
-  lookSensitivity: 150
-  verticalRotationLimit: 80
-  minHorizontalLimit: -90
-  maxHorizontalLimit: 90
 --- !u!1 &1124197996
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,6 +2553,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdef95b4838e4040a65708eaaec474d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretPivot: {fileID: 448563318}
+  lookSensitivity: 5
+  verticalRotationLimit: 80
+  minHorizontalLimit: -90
+  maxHorizontalLimit: 90
 --- !u!1001 &9130902273912545910
 PrefabInstance:
   m_ObjectHideFlags: 0
