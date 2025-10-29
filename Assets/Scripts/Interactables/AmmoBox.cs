@@ -56,12 +56,20 @@ public class AmmoBox : MonoBehaviour
         ammo += amount;
     }
 
-    public int getAmmo()
+    public void DecreasedAmmo()
+    {
+        if (ammo <= 0)
+            return;
+        
+        ammo--;
+    }
+
+    public int GetAmmo()
     {
         return ammo;
     }
     
-    public void resetAmmo()
+    public void ResetAmmo()
     {
         ammo = 0;
     }

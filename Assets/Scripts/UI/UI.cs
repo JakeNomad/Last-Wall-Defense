@@ -30,11 +30,23 @@ public class UI : MonoBehaviour
 
     private void UpdateAmmoText()
     {
-        ammoText.text = "Ammo: " + ammoBox.getAmmo();
+        ammoText.text = "Ammo: " + ammoBox.GetAmmo();
+    }
+
+    public int GetAmmo()
+    {
+        return ammoBox.GetAmmo();
+    }
+
+    public void DecreasedAmmo()
+    {
+        ammoBox.DecreasedAmmo();
+        UpdateAmmoText();       
     }
 
     private void CheckCrosshair()
     {
+        // Check player whether using turret or not
         if (!camSwitcher.ActivateTurretCam())
         {
             crosshair.SetActive(false);

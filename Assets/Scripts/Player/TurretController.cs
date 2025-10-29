@@ -4,10 +4,12 @@ public class TurretController : MonoBehaviour
 {
     [Header("Elements")]
     private bool isOnTurrent = false;
+    private bool canShoot = false;
 
     public Transform turretPivot;
 
     private CameraSwitcher camSwitcher;
+    private UI ui;
     private float horizontalInput;
     private float verticalInput;
 
@@ -26,6 +28,8 @@ public class TurretController : MonoBehaviour
         camSwitcher = GameObject.Find("Camera Manager").gameObject.GetComponent<CameraSwitcher>();
         Cursor.lockState = CursorLockMode.Locked;
 
+        ui = GameObject.Find("UI").gameObject.GetComponent<UI>();
+
         rotationY = turretPivot.localEulerAngles.y;
         rotationX = turretPivot.localEulerAngles.z;
     }
@@ -34,6 +38,7 @@ public class TurretController : MonoBehaviour
     {
         if(camSwitcher.ActivateTurretCam())
         {
+            Shoot();
             HandleTurretCameraRotation();
         }
     }
@@ -43,6 +48,7 @@ public class TurretController : MonoBehaviour
         if(collider.CompareTag("Turret"))
         {
             isOnTurrent = true;
+            canShoot = true;
         }
     }
 
@@ -51,6 +57,7 @@ public class TurretController : MonoBehaviour
         if(collider.CompareTag("Turret"))
         {
             isOnTurrent = false;
+            canShoot = false;
         }
     }
 
@@ -73,11 +80,22 @@ public class TurretController : MonoBehaviour
 
         // Limiting the angle
         rotationX = Mathf.Clamp(rotationX, -verticalRotationLimit, verticalRotationLimit);
-        
+
         turretPivot.localRotation = Quaternion.Euler(
-            0f,         
-            rotationY, 
-            rotationX    
+            0f,
+            rotationY,
+            rotationX
         );
+    }
+    
+    private void Shoot()
+    {
+        if(canShoot)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                ui.DecreasedAmmo();
+            }
+        }
     }
 }
