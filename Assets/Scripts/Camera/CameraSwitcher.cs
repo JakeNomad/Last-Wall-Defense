@@ -8,7 +8,6 @@ public class CameraSwitcher : MonoBehaviour
 
     private TurretController turretController;
 
-
     void Start()
     {
         turretController = GameObject.Find("Player").gameObject.GetComponent<TurretController>();

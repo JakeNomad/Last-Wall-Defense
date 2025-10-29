@@ -12,7 +12,7 @@ public class TurretController : MonoBehaviour
     private float verticalInput;
 
     [Header("Settings")]
-    [SerializeField] private float lookSensitivity = 5f;
+    [SerializeField] private float lookSensitivity = 300f;
     [SerializeField] private float verticalRotationLimit = 80f;
 
     [SerializeField] private float minHorizontalLimit = -90f;
