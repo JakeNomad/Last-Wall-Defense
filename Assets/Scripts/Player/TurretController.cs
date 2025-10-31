@@ -10,6 +10,7 @@ public class TurretController : MonoBehaviour
 
     private CameraSwitcher camSwitcher;
     private UI ui;
+
     private float horizontalInput;
     private float verticalInput;
 
@@ -19,6 +20,10 @@ public class TurretController : MonoBehaviour
 
     [SerializeField] private float minHorizontalLimit = -90f;
     [SerializeField] private float maxHorizontalLimit = 90f;
+
+    // Fire Rate Settings
+    [SerializeField] private float fireRate = 0.2f;
+    private float nextFireTime = 0f;
     
     private float rotationX = 0f;
     private float rotationY = 0f;
@@ -69,7 +74,7 @@ public class TurretController : MonoBehaviour
     private void HandleTurretCameraRotation()
     {
         StopUsingTurret();
-        
+
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
 
@@ -92,10 +97,12 @@ public class TurretController : MonoBehaviour
 
     private void Shoot()
     {
-        if (canShoot)
+        if (canShoot && Input.GetKey(KeyCode.Mouse0))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            // Fire Rate Control
+            if(Time.time > nextFireTime)
             {
+                nextFireTime = Time.time + fireRate;
                 ui.DecreasedAmmo();
             }
         }
