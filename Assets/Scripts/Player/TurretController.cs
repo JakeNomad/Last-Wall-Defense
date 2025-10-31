@@ -68,6 +68,8 @@ public class TurretController : MonoBehaviour
 
     private void HandleTurretCameraRotation()
     {
+        StopUsingTurret();
+        
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity * Time.deltaTime;
 
@@ -87,14 +89,26 @@ public class TurretController : MonoBehaviour
             rotationX
         );
     }
-    
+
     private void Shoot()
     {
-        if(canShoot)
+        if (canShoot)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 ui.DecreasedAmmo();
+            }
+        }
+    }
+    private void StopUsingTurret()
+    {
+        Vector3 warpPosition = new Vector3(1.05f, 0.512f, -7.136f); 
+
+        if(isOnTurrent)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                transform.position = warpPosition;
             }
         }
     }
