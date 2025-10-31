@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     
 
     private bool isOnDoor = false;
-    private bool canMove = true;
+    public bool canMove = true;
 
     [Header("Animation")]
     private Animator enemyAnimation;
