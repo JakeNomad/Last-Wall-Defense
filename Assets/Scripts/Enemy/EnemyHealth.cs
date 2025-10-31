@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [Header("Components")]
+    public ParticleSystem bloodEffect;
+
     [Header("Elements")]
     [SerializeField] private int enemyHealth = 5;
 
@@ -15,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        bloodEffect.Play();
         Debug.Log(enemyHealth);
         enemyHealth -= amount;
     }
