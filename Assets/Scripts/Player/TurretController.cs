@@ -8,11 +8,13 @@ public class TurretController : MonoBehaviour
 
     public Transform turretPivot;
 
+    [Header("Shooting Components")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float bulletSpeed = 50f;
+
     private CameraSwitcher camSwitcher;
     private UI ui;
-
-    private float horizontalInput;
-    private float verticalInput;
 
     [Header("Settings")]
     [SerializeField] private float lookSensitivity = 300f;
@@ -43,6 +45,7 @@ public class TurretController : MonoBehaviour
     {
         if(camSwitcher.ActivateTurretCam())
         {
+            isOutofBullet();
             Shoot();
             HandleTurretCameraRotation();
         }
@@ -100,13 +103,32 @@ public class TurretController : MonoBehaviour
         if (canShoot && Input.GetKey(KeyCode.Mouse0))
         {
             // Fire Rate Control
-            if(Time.time > nextFireTime)
+            if (Time.time > nextFireTime)
             {
                 nextFireTime = Time.time + fireRate;
+                FireBullet();
                 ui.DecreasedAmmo();
             }
         }
     }
+
+    private void FireBullet()
+    {
+        Vector3 direction = firePoint.right;
+
+        // Mermiyi oluştuğu anda RigidBody componentini al
+        GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody bulletRb = newBullet.GetComponent<Rigidbody>();
+
+        bulletRb.linearVelocity = direction * bulletSpeed;
+    }
+
+    private void isOutofBullet()
+    {
+        if (ui.GetAmmo() <= 0)
+            canShoot = false;
+    }
+    
     private void StopUsingTurret()
     {
         Vector3 warpPosition = new Vector3(1.05f, 0.512f, -7.136f); 
