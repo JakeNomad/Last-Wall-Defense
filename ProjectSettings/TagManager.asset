@@ -10,6 +10,7 @@ TagManager:
   - Turret
   - Enemy
   - Door Trigger
+  - Door
   layers:
   - Default
   - TransparentFX

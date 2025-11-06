@@ -35,7 +35,6 @@ public class EnemyHealth : MonoBehaviour
         if (canBleed)
             bloodEffect.Play();
         
-        Debug.Log(enemyHealth);
         enemyHealth -= amount;
     }
 
