@@ -5,6 +5,7 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Elements")]
     public GameObject enemyPrefab;
+    private GameManager gameManager;
 
     [Header("Wave")]
     public int waveNumber = 1;
@@ -18,20 +19,26 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").gameObject.GetComponent<GameManager>();
+
         enemySpawnPerWave = waveNumber;
         BeginTheWaves();
     }
 
     void Update()
     {
-        enemyCount = FindObjectsByType<EnemyController>(FindObjectsSortMode.None).Length;
-
-        if (enemyCount == 0 && !isSpawning) 
+        if(!gameManager.IsGameOver())
         {
-            waveNumber++;
-            enemySpawnPerWave = waveNumber; 
-            StartCoroutine(SpawnEnemies(enemySpawnPerWave, 1.5f));
+            enemyCount = FindObjectsByType<EnemyController>(FindObjectsSortMode.None).Length;
+
+            if (enemyCount == 0 && !isSpawning) 
+            {
+                waveNumber++;
+                enemySpawnPerWave = waveNumber; 
+                StartCoroutine(SpawnEnemies(enemySpawnPerWave, 1.5f));
+            }
         }
+        
     }
     
     private void BeginTheWaves()

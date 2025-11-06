@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
     private TurretController turretController;
+    private GameManager gameManager;
     private Rigidbody playerRb;
     private Animator playerAnim;
 
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").gameObject.GetComponent<GameManager>();
         turretController = GetComponent<TurretController>();
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
@@ -29,19 +31,22 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        if(!gameManager.IsGameOver())
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
 
-        bool isMoving = (horizontalInput != 0 || verticalInput != 0);
+            bool isMoving = (horizontalInput != 0 || verticalInput != 0);
     
-        // For stoping animation while using turret
-        bool shouldBeRunning = isMoving && !turretController.IsOnTurrent();
-        playerAnim.SetBool(isRunningHash, shouldBeRunning);
+            // For stoping animation while using turret
+            bool shouldBeRunning = isMoving && !turretController.IsOnTurrent();
+            playerAnim.SetBool(isRunningHash, shouldBeRunning);
+        }
     }
 
     void FixedUpdate()
     {
-        if (!turretController.IsOnTurrent())
+        if (!turretController.IsOnTurrent() && !gameManager.IsGameOver())
         {
             Move();    
         }

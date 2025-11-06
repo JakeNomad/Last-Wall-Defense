@@ -5,7 +5,14 @@ public class DoorController : MonoBehaviour
     [Header("Elements")]
     public float maxHealth = 100f;
     public float currentHealth = 100f;
+
     private bool isDestroyed = false;
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = GameObject.Find("Game Manager").gameObject.GetComponent<GameManager>();
+    }
 
     public void TakeDamage(float damage)
     {
@@ -15,6 +22,7 @@ public class DoorController : MonoBehaviour
         if (currentHealth <= 0)
         {
             DestroyDoor();
+            gameManager.GameOver();
         }
     }
 
