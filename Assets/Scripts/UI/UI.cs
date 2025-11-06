@@ -6,13 +6,17 @@ public class UI : MonoBehaviour
     [Header("Elements")]
     public TextMeshProUGUI ammoText;
     public GameObject crosshair;
+    public TextMeshProUGUI waveText;
 
     private AmmoBox ammoBox;
     private CameraSwitcher camSwitcher;
+    private WaveManager waveManager;
     
     
     void Start()
     {
+        waveManager = GameObject.Find("Wave Manager").gameObject.GetComponent<WaveManager>();
+
         ammoBox = GameObject.Find("Ammo Box").gameObject.GetComponent<AmmoBox>();
         ammoText.text = "Ammo: " + 0;
 
@@ -25,12 +29,18 @@ public class UI : MonoBehaviour
         if (ammoBox != null)
             UpdateAmmoText();
 
+        UpdateWaveIndex();
         CheckCrosshair();
     }
 
     private void UpdateAmmoText()
     {
         ammoText.text = "Ammo: " + ammoBox.GetAmmo();
+    }
+
+    private void UpdateWaveIndex()
+    {
+        waveText.text = "Wave: " + waveManager.GetWaveIndex();
     }
 
     public int GetAmmo()

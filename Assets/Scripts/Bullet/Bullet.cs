@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
-            Debug.Log("Bullet Hit!");
         }
         
         Destroy(gameObject);

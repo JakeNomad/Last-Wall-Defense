@@ -28,7 +28,6 @@ public class AmmoBox : MonoBehaviour
         
         if (isInCollision && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Ammo Taken!");
             IncreaseAmmo(1);
         }
     }
@@ -38,7 +37,6 @@ public class AmmoBox : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             isInCollision = true;           
-            Debug.Log("Entered");
         }
     }
 
@@ -47,7 +45,6 @@ public class AmmoBox : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             isInCollision = false;
-            Debug.Log("Exited");
         }
     }
 
