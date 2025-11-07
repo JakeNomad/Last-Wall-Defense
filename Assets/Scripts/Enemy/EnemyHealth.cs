@@ -13,10 +13,14 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int enemyHealth = 5;
     private bool canBleed = true;
 
+    [Header("Sounds")]
+    private SoundManager soundManager;
+
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
         enemyController = GetComponent<EnemyController>();
+        soundManager = GameObject.Find("Sound Manager").gameObject.GetComponent<SoundManager>();
     }
 
     void Update()
@@ -33,7 +37,10 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (canBleed)
+        {
+            soundManager.PlayEnemyHitSound();
             bloodEffect.Play();
+        }
         
         enemyHealth -= amount;
     }

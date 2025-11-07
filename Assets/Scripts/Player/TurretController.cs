@@ -31,12 +31,16 @@ public class TurretController : MonoBehaviour
     private float rotationX = 0f;
     private float rotationY = 0f;
 
+    [Header("Sounds")]
+    private SoundManager soundManager;
+
     void Start()
     {
         camSwitcher = GameObject.Find("Camera Manager").gameObject.GetComponent<CameraSwitcher>();
         Cursor.lockState = CursorLockMode.Locked;
 
         ui = GameObject.Find("UI").gameObject.GetComponent<UI>();
+        soundManager = GameObject.Find("Sound Manager").gameObject.GetComponent<SoundManager>();
 
         rotationY = turretPivot.localEulerAngles.y;
         rotationX = turretPivot.localEulerAngles.z;
@@ -116,6 +120,7 @@ public class TurretController : MonoBehaviour
     private void FireBullet()
     {
         muzzleFlash.Play();
+        soundManager.PlayTurretShootSound();
         Vector3 direction = firePoint.right;
 
         // Mermiyi oluştuğu anda RigidBody componentini al
