@@ -12,6 +12,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 50f;
+    public ParticleSystem muzzleFlash;
 
     private CameraSwitcher camSwitcher;
     private UI ui;
@@ -114,6 +115,7 @@ public class TurretController : MonoBehaviour
 
     private void FireBullet()
     {
+        muzzleFlash.Play();
         Vector3 direction = firePoint.right;
 
         // Mermiyi oluştuğu anda RigidBody componentini al
