@@ -21,12 +21,16 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     private readonly int isRunningHash = Animator.StringToHash("IsRunning");
 
+    [Header("Sounds")]
+    private SoundManager soundManager;
+
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").gameObject.GetComponent<GameManager>();
         turretController = GetComponent<TurretController>();
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+        soundManager = GameObject.Find("Sound Manager").gameObject.GetComponent<SoundManager>();
     }
     
     void Update()
@@ -56,37 +60,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-private void Move()
-{
-    bool isMoving = (horizontalInput != 0 || verticalInput != 0);
-
-    if (!isMoving)
+    private void Move()
     {
-        playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, 0);
-        return;
+        bool isMoving = (horizontalInput != 0 || verticalInput != 0);
+
+        if (!isMoving)
+        {
+            playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, 0);
+            return;
+        }
+
+        Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
+
+        if (playerRb != null)
+        {
+            playerRb.linearVelocity = new Vector3(
+                targetVelocity.x,
+                playerRb.linearVelocity.y,
+                targetVelocity.z
+            );
+        }
+
+        RotateCharacter(targetVelocity); 
     }
 
-    Vector3 targetVelocity = new Vector3(verticalInput, 0f, -horizontalInput) * moveSpeed;
-
-    if (playerRb != null)
-    {
-        playerRb.linearVelocity = new Vector3(
-            targetVelocity.x,
-            playerRb.linearVelocity.y,
-            targetVelocity.z
-        );
-    }
-
-    RotateCharacter(targetVelocity); 
-    }
-    
     private void RotateCharacter(Vector3 movementDirection)
     {
         // Dont move in y direction
         movementDirection.y = 0;
 
         // If there is a velocity direction
-        if(movementDirection.sqrMagnitude > 0.01f)
+        if (movementDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
 
@@ -97,6 +101,11 @@ private void Move()
                 rotationSpeed * Time.deltaTime
             );
         }
+    }
+    
+    public void PlayFootstep()
+    {
+        soundManager.PlayFootstepSound();
     }
 }
 

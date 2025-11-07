@@ -14,9 +14,25 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float enemyHitPitch = 1.0f;
     [SerializeField] private float enemyHitVolume = 0.05f;
 
+    [Header("Player")]
+    [SerializeField] private AudioClip[] playerFootstep;
+    [SerializeField] private float playerFootstepPitch = 1.0f;
+    [SerializeField] private float playerFootstepVolume = 0.05f;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlayFootstepSound()
+    {
+        if (audioSource == null) return;
+
+        audioSource.pitch = playerFootstepPitch;
+        audioSource.volume = playerFootstepVolume;
+
+        int randSoundIndex = Random.Range(0, playerFootstep.Length);
+        audioSource.PlayOneShot(playerFootstep[randSoundIndex]);
     }
 
     public void PlayTurretShootSound()
