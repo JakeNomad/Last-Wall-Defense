@@ -4,11 +4,15 @@ public class SoundManager : MonoBehaviour
 {
     private AudioSource audioSource;
 
-    // Turret
-    public AudioClip[] turretShoot;
+    [Header("Turret")]
+    [SerializeField] private AudioClip[] turretShoot;
+    [SerializeField] private float turretShootPitch = 3.0f;
+    [SerializeField] private float turretShootVolume = 0.1f;
 
-    // Enemy
-    public AudioClip[] enemyHit;
+    [Header("Enemy")]
+    [SerializeField] private AudioClip[] enemyHit;
+    [SerializeField] private float enemyHitPitch = 1.0f;
+    [SerializeField] private float enemyHitVolume = 0.05f;
 
     void Start()
     {
@@ -19,6 +23,9 @@ public class SoundManager : MonoBehaviour
     {
         if (audioSource == null) return;
 
+        audioSource.pitch = turretShootPitch;
+        audioSource.volume = turretShootVolume;
+
         int randSoundIndex = Random.Range(0, turretShoot.Length);
         audioSource.PlayOneShot(turretShoot[randSoundIndex]);
     }
@@ -26,6 +33,9 @@ public class SoundManager : MonoBehaviour
     public void PlayEnemyHitSound()
     {
         if (audioSource == null) return;
+
+        audioSource.pitch = enemyHitPitch;
+        audioSource.volume = enemyHitVolume;
 
         int randSoundIndex = Random.Range(0, enemyHit.Length);
         audioSource.PlayOneShot(enemyHit[randSoundIndex]);

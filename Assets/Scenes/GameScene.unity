@@ -7490,6 +7490,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 08a178c9495c07345a4211b6d93a198a, type: 3}
   - {fileID: 8300000, guid: 1ca25511bbc0ef84196032c2d3b7241d, type: 3}
   - {fileID: 8300000, guid: b111e4c93a24dfa4e8b6b955b3e65950, type: 3}
+  turretShootPitch: 3
   enemyHit:
   - {fileID: 8300000, guid: 9d387d3b3b67f4647aa913646216da47, type: 3}
   - {fileID: 8300000, guid: 24e960a738a7a984ea8fb87fd80d2439, type: 3}
@@ -7499,6 +7500,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b23490f8536c21b449f23d231d6ae469, type: 3}
   - {fileID: 8300000, guid: f4e90817523934b41be2445bcb7d9db0, type: 3}
   - {fileID: 8300000, guid: 8369c7bef8244644f91e73e85345fbf6, type: 3}
+  enemyHitPitch: 1.5
 --- !u!82 &1710522013
 AudioSource:
   m_ObjectHideFlags: 0
