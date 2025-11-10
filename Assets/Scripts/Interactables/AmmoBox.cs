@@ -26,7 +26,7 @@ public class AmmoBox : MonoBehaviour
             return;
 
         
-        if (isInCollision && Input.GetKeyDown(KeyCode.E))
+        if (isInCollision && Input.GetKey(KeyCode.E))
         {
             IncreaseAmmo(1);
         }

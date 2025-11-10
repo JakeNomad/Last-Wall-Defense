@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
     public ParticleSystem bloodEffect;
     private Animator enemyAnimator;
     private EnemyController enemyController;
+    private Collider enemyCollider;
 
     private float timer = 0f;
 
@@ -19,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
+        enemyCollider = GetComponent<Collider>();
         enemyController = GetComponent<EnemyController>();
         soundManager = GameObject.Find("Sound Manager").gameObject.GetComponent<SoundManager>();
     }
@@ -28,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
         if (enemyHealth <= 0)
         {
             canBleed = false;
+            enemyCollider.isTrigger = true;
             enemyController.canMove = false;
             enemyAnimator.SetBool("isDead", true);
             DestroyAfterSomeSecond(1.2f);
